@@ -29,49 +29,56 @@
         private void InitializeComponent()
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.FiguresPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.figuresPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.radioLine = new System.Windows.Forms.RadioButton();
             this.radioRectangle = new System.Windows.Forms.RadioButton();
             this.radioEllipse = new System.Windows.Forms.RadioButton();
             this.radioPolyline = new System.Windows.Forms.RadioButton();
             this.radioPolygon = new System.Windows.Forms.RadioButton();
-            this.ParamsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.toolsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonUndo = new System.Windows.Forms.Button();
+            this.buttonRedo = new System.Windows.Forms.Button();
+            this.buttonUndoAll = new System.Windows.Forms.Button();
+            this.buttonRedoAll = new System.Windows.Forms.Button();
             this.buttonPenColor = new System.Windows.Forms.Button();
             this.buttonBrushColor = new System.Windows.Forms.Button();
+            this.checkBoxBrush = new System.Windows.Forms.CheckBox();
             this.trackPenWidth = new System.Windows.Forms.TrackBar();
             this.penColorDialog = new System.Windows.Forms.ColorDialog();
             this.brushColorDialog = new System.Windows.Forms.ColorDialog();
+            this.paramsPanel = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.FiguresPanel.SuspendLayout();
-            this.ParamsPanel.SuspendLayout();
+            this.figuresPanel.SuspendLayout();
+            this.toolsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackPenWidth)).BeginInit();
+            this.paramsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.Color.White;
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Location = new System.Drawing.Point(0, 35);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(982, 453);
+            this.pictureBox.Size = new System.Drawing.Size(982, 418);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
             // 
-            // FiguresPanel
+            // figuresPanel
             // 
-            this.FiguresPanel.Controls.Add(this.radioLine);
-            this.FiguresPanel.Controls.Add(this.radioRectangle);
-            this.FiguresPanel.Controls.Add(this.radioEllipse);
-            this.FiguresPanel.Controls.Add(this.radioPolyline);
-            this.FiguresPanel.Controls.Add(this.radioPolygon);
-            this.FiguresPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.FiguresPanel.Location = new System.Drawing.Point(836, 0);
-            this.FiguresPanel.Name = "FiguresPanel";
-            this.FiguresPanel.Size = new System.Drawing.Size(146, 453);
-            this.FiguresPanel.TabIndex = 1;
+            this.figuresPanel.Controls.Add(this.radioLine);
+            this.figuresPanel.Controls.Add(this.radioRectangle);
+            this.figuresPanel.Controls.Add(this.radioEllipse);
+            this.figuresPanel.Controls.Add(this.radioPolyline);
+            this.figuresPanel.Controls.Add(this.radioPolygon);
+            this.figuresPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.figuresPanel.Location = new System.Drawing.Point(836, 35);
+            this.figuresPanel.Name = "figuresPanel";
+            this.figuresPanel.Size = new System.Drawing.Size(146, 418);
+            this.figuresPanel.TabIndex = 1;
             // 
             // radioLine
             // 
@@ -138,16 +145,57 @@
             this.radioPolygon.UseVisualStyleBackColor = true;
             this.radioPolygon.CheckedChanged += new System.EventHandler(this.radioPolygon_CheckedChanged);
             // 
-            // ParamsPanel
+            // toolsPanel
             // 
-            this.ParamsPanel.Controls.Add(this.buttonPenColor);
-            this.ParamsPanel.Controls.Add(this.buttonBrushColor);
-            this.ParamsPanel.Controls.Add(this.trackPenWidth);
-            this.ParamsPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ParamsPanel.Location = new System.Drawing.Point(0, 0);
-            this.ParamsPanel.Name = "ParamsPanel";
-            this.ParamsPanel.Size = new System.Drawing.Size(117, 453);
-            this.ParamsPanel.TabIndex = 2;
+            this.toolsPanel.Controls.Add(this.buttonUndo);
+            this.toolsPanel.Controls.Add(this.buttonRedo);
+            this.toolsPanel.Controls.Add(this.buttonUndoAll);
+            this.toolsPanel.Controls.Add(this.buttonRedoAll);
+            this.toolsPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.toolsPanel.Location = new System.Drawing.Point(0, 35);
+            this.toolsPanel.Name = "toolsPanel";
+            this.toolsPanel.Size = new System.Drawing.Size(100, 418);
+            this.toolsPanel.TabIndex = 2;
+            // 
+            // buttonUndo
+            // 
+            this.buttonUndo.Location = new System.Drawing.Point(3, 3);
+            this.buttonUndo.Name = "buttonUndo";
+            this.buttonUndo.Size = new System.Drawing.Size(94, 29);
+            this.buttonUndo.TabIndex = 0;
+            this.buttonUndo.Text = "Отменить";
+            this.buttonUndo.UseVisualStyleBackColor = true;
+            this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
+            // 
+            // buttonRedo
+            // 
+            this.buttonRedo.Location = new System.Drawing.Point(3, 38);
+            this.buttonRedo.Name = "buttonRedo";
+            this.buttonRedo.Size = new System.Drawing.Size(94, 29);
+            this.buttonRedo.TabIndex = 1;
+            this.buttonRedo.Text = "Повторить";
+            this.buttonRedo.UseVisualStyleBackColor = true;
+            this.buttonRedo.Click += new System.EventHandler(this.buttonRedo_Click);
+            // 
+            // buttonUndoAll
+            // 
+            this.buttonUndoAll.Location = new System.Drawing.Point(3, 73);
+            this.buttonUndoAll.Name = "buttonUndoAll";
+            this.buttonUndoAll.Size = new System.Drawing.Size(94, 58);
+            this.buttonUndoAll.TabIndex = 2;
+            this.buttonUndoAll.Text = "Отменить всё";
+            this.buttonUndoAll.UseVisualStyleBackColor = true;
+            this.buttonUndoAll.Click += new System.EventHandler(this.buttonUndoAll_Click);
+            // 
+            // buttonRedoAll
+            // 
+            this.buttonRedoAll.Location = new System.Drawing.Point(3, 137);
+            this.buttonRedoAll.Name = "buttonRedoAll";
+            this.buttonRedoAll.Size = new System.Drawing.Size(94, 58);
+            this.buttonRedoAll.TabIndex = 3;
+            this.buttonRedoAll.Text = "Повторить всё";
+            this.buttonRedoAll.UseVisualStyleBackColor = true;
+            this.buttonRedoAll.Click += new System.EventHandler(this.buttonRedoAll_Click);
             // 
             // buttonPenColor
             // 
@@ -171,9 +219,20 @@
             this.buttonBrushColor.UseVisualStyleBackColor = false;
             this.buttonBrushColor.Click += new System.EventHandler(this.buttonFillColor_Click);
             // 
+            // checkBoxBrush
+            // 
+            this.checkBoxBrush.AutoSize = true;
+            this.checkBoxBrush.Location = new System.Drawing.Point(73, 3);
+            this.checkBoxBrush.Name = "checkBoxBrush";
+            this.checkBoxBrush.Size = new System.Drawing.Size(87, 24);
+            this.checkBoxBrush.TabIndex = 3;
+            this.checkBoxBrush.Text = "Заливка";
+            this.checkBoxBrush.UseVisualStyleBackColor = true;
+            this.checkBoxBrush.CheckedChanged += new System.EventHandler(this.checkBoxBrush_CheckedChanged);
+            // 
             // trackPenWidth
             // 
-            this.trackPenWidth.Location = new System.Drawing.Point(3, 38);
+            this.trackPenWidth.Location = new System.Drawing.Point(166, 3);
             this.trackPenWidth.Minimum = 1;
             this.trackPenWidth.Name = "trackPenWidth";
             this.trackPenWidth.Size = new System.Drawing.Size(114, 56);
@@ -185,23 +244,37 @@
             // 
             this.brushColorDialog.Color = System.Drawing.Color.White;
             // 
-            // Form1
+            // paramsPanel
+            // 
+            this.paramsPanel.Controls.Add(this.buttonPenColor);
+            this.paramsPanel.Controls.Add(this.buttonBrushColor);
+            this.paramsPanel.Controls.Add(this.checkBoxBrush);
+            this.paramsPanel.Controls.Add(this.trackPenWidth);
+            this.paramsPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.paramsPanel.Location = new System.Drawing.Point(0, 0);
+            this.paramsPanel.Name = "paramsPanel";
+            this.paramsPanel.Size = new System.Drawing.Size(982, 35);
+            this.paramsPanel.TabIndex = 4;
+            // 
+            // Application
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(982, 453);
-            this.Controls.Add(this.ParamsPanel);
-            this.Controls.Add(this.FiguresPanel);
+            this.Controls.Add(this.toolsPanel);
+            this.Controls.Add(this.figuresPanel);
             this.Controls.Add(this.pictureBox);
-            this.Name = "Form1";
+            this.Controls.Add(this.paramsPanel);
+            this.Name = "Application";
             this.Text = "Paint";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.FiguresPanel.ResumeLayout(false);
-            this.FiguresPanel.PerformLayout();
-            this.ParamsPanel.ResumeLayout(false);
-            this.ParamsPanel.PerformLayout();
+            this.figuresPanel.ResumeLayout(false);
+            this.figuresPanel.PerformLayout();
+            this.toolsPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackPenWidth)).EndInit();
+            this.paramsPanel.ResumeLayout(false);
+            this.paramsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -209,17 +282,23 @@
         #endregion
 
         private PictureBox pictureBox;
-        private FlowLayoutPanel FiguresPanel;
+        private FlowLayoutPanel figuresPanel;
         private RadioButton radioLine;
         private RadioButton radioRectangle;
         private RadioButton radioEllipse;
         private RadioButton radioPolyline;
         private RadioButton radioPolygon;
-        private FlowLayoutPanel ParamsPanel;
+        private FlowLayoutPanel toolsPanel;
         private ColorDialog penColorDialog;
         private Button buttonPenColor;
         private Button buttonBrushColor;
         private ColorDialog brushColorDialog;
         private TrackBar trackPenWidth;
+        private CheckBox checkBoxBrush;
+        private FlowLayoutPanel paramsPanel;
+        private Button buttonUndo;
+        private Button buttonRedo;
+        private Button buttonUndoAll;
+        private Button buttonRedoAll;
     }
 }

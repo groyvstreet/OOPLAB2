@@ -1,35 +1,55 @@
+using Lab2.Commands;
 using Lab2.FigureCreators;
-using Lab2.Figures;
+using Lab2.FigureModels;
 
 namespace Lab2
 {
     public partial class Form1 : Form
     {
-        Point _beginPoint;
-        Point _endPoint;
         Pen _pen;
         SolidBrush _brush;
-        FigureCreator _figureCreator;
         bool isDrawing;
-        List<Figure> _figures;
+        bool isBrushable;
+        Point _point;
         List<Point> _points;
+        FigureCreator _figureCreator;
+        Figures _figures;
+        CommandManager _manager;
 
         public Form1()
         {
             InitializeComponent();
-            Initialize();
-        }
 
-        private void Initialize()
-        {
-            _beginPoint = new Point(0, 0);
-            _endPoint = new Point(0, 0);
             _pen = new Pen(Color.Black, 1);
             _brush = new SolidBrush(Color.White);
-            _figureCreator = new LineCreator();
+
             isDrawing = false;
-            _figures = new List<Figure>();
+            isBrushable = false;
+
+            _point = new Point(0, 0);
             _points = new List<Point>();
+
+            _figureCreator = new LineCreator();
+            _figures = new Figures();
+            _manager = new CommandManager();
+
+            manager_Changed();
+
+            _figures.Changed += figures_Changed;
+            _manager.Changed += manager_Changed;
+        }
+
+        private void figures_Changed()
+        {
+            pictureBox.Invalidate();
+        }
+
+        private void manager_Changed()
+        {
+            buttonUndo.Enabled = _manager.CanUndo;
+            buttonUndoAll.Enabled = _manager.CanUndo;
+            buttonRedo.Enabled = _manager.CanRedo;
+            buttonRedoAll.Enabled = _manager.CanRedo;
         }
 
         private void buttonBrushColor_Click(object sender, EventArgs e)
@@ -41,6 +61,7 @@ namespace Lab2
 
             _pen.Color = penColorDialog.Color;
             buttonPenColor.BackColor = penColorDialog.Color;
+            pictureBox.Invalidate();
         }
 
         private void buttonFillColor_Click(object sender, EventArgs e)
@@ -52,11 +73,13 @@ namespace Lab2
 
             _brush.Color = brushColorDialog.Color;
             buttonBrushColor.BackColor = brushColorDialog.Color;
+            pictureBox.Invalidate();
         }
 
         private void trackPenWidth_Scroll(object sender, EventArgs e)
         {
             _pen.Width = trackPenWidth.Value;
+            pictureBox.Invalidate();
         }
 
         private void radioLine_CheckedChanged(object sender, EventArgs e)
@@ -88,7 +111,7 @@ namespace Lab2
         {
             if (isDrawing)
             {
-                _endPoint = e.Location;
+                _point = e.Location;
                 pictureBox.Invalidate();
             }
         }
@@ -102,33 +125,18 @@ namespace Lab2
 
             if (isDrawing)
             {
+                _points.Add(_point);
                 var figure = _figureCreator.Create();
-                figure.BeginPoint = _beginPoint;
-                figure.EndPoint = _endPoint;
                 figure.Pen = _pen;
-                figure.Brush = _brush;
 
-                if (figure is Polyline)
+                if (isBrushable)
                 {
-                    Polyline polyline = (Polyline)figure;
-
-                    foreach (var point in _points)
-                    {
-                        polyline.Points.Add(point);
-                    }
+                    figure.Brush = _brush;
                 }
 
-                if (figure is Polygon)
-                {
-                    Polygon polyline = (Polygon)figure;
-
-                    foreach (var point in _points)
-                    {
-                        polyline.Points.Add(point);
-                    }
-                }
-
+                figure.SetPoints(_points);
                 figure.Draw(e.Graphics);
+                _points.RemoveAt(_points.Count - 1);
             }
         }
 
@@ -139,50 +147,70 @@ namespace Lab2
                 if (!isDrawing)
                 {
                     isDrawing = true;
-                    _beginPoint = e.Location;
+                    _points.Add(e.Location);
                 }
                 else
                 {
                     isDrawing = false;
-                    _endPoint = e.Location;
+                    _points.Add(e.Location);
                     var figure = _figureCreator.Create();
-                    figure.BeginPoint = _beginPoint;
-                    figure.EndPoint = _endPoint;
                     figure.Pen.Color = _pen.Color;
                     figure.Pen.Width = _pen.Width;
-                    figure.Brush.Color = _brush.Color;
 
-                    if (figure is Polyline)
+                    if (isBrushable)
                     {
-                        Polyline polyline = (Polyline)figure;
-
-                        foreach (var point in _points)
-                        {
-                            polyline.Points.Add(point);
-                        }
+                        figure.Brush = new SolidBrush(_brush.Color);
                     }
 
-                    if (figure is Polygon)
-                    {
-                        Polygon polyline = (Polygon)figure;
+                    figure.SetPoints(_points);
 
-                        foreach (var point in _points)
-                        {
-                            polyline.Points.Add(point);
-                        }
-                    }
+                    var command = new AddFigureCommand(_figures, figure);
+                    _manager.Execute(command);
 
-                    _figures.Add(figure);
                     _points.Clear();
                 }
             }
             else if (e.Button == MouseButtons.Right)
             {
-                if (isDrawing && (radioPolyline.Checked || radioPolygon.Checked))
+                if (isDrawing)
                 {
                     _points.Add(e.Location);
                 }
             }
+        }
+
+        private void checkBoxBrush_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxBrush.Checked)
+            {
+                isBrushable = true;
+            }
+            else
+            {
+                isBrushable = false;
+            }
+
+            pictureBox.Invalidate();
+        }
+
+        private void buttonUndo_Click(object sender, EventArgs e)
+        {
+            _manager.Undo();
+        }
+
+        private void buttonRedo_Click(object sender, EventArgs e)
+        {
+            _manager.Redo();
+        }
+
+        private void buttonUndoAll_Click(object sender, EventArgs e)
+        {
+            _manager.UndoAll();
+        }
+
+        private void buttonRedoAll_Click(object sender, EventArgs e)
+        {
+            _manager.RedoAll();
         }
     }
 }

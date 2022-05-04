@@ -1,4 +1,4 @@
-﻿using Lab2.Figures;
+﻿using Lab2.FigureModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Lab2.FigureCreators
     {
         public override Figure Create()
         {
-            return new Figures.Rectangle();
+            return new FigureModels.Rectangle();
         }
     }
 }
