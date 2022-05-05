@@ -19,7 +19,6 @@ namespace Lab2
         FigureCreator _figureCreator = new LineCreator();
         Figures _figures = new Figures();
         CommandManager _manager = new CommandManager();
-        CreatorGetter _creatorGetter = new CreatorGetter();
 
         public Form1()
         {
@@ -224,6 +223,7 @@ namespace Lab2
             if (!isSelecting)
             {
                 _selectedFigure = null;
+                buttonCopyFigure.Enabled = false;
                 pictureBox.Invalidate();
             }
         }
@@ -279,8 +279,7 @@ namespace Lab2
         {
             if (_selectedFigure != null)
             {
-                _figureCreator = _creatorGetter.Get(_selectedFigure);
-                var figure = _figureCreator.Create();
+                var figure = _selectedFigure.Clone();
                 figure.Pen.Color = _selectedFigure.Pen.Color;
                 figure.Pen.Width = _selectedFigure.Pen.Width;
 

@@ -13,5 +13,20 @@
         {
             graphics.DrawLine(Pen, points[0].X, points[0].Y, points[1].X, points[1].Y);
         }
+
+        public override Figure Clone()
+        {
+            var figure = new Line();
+            figure.Pen.Color = Pen.Color;
+            figure.Pen.Width = Pen.Width;
+
+            if (Brush != null)
+            {
+                figure.Brush = new SolidBrush(Brush.Color);
+            }
+
+            figure.SetPoints(points.ToList());
+            return figure;
+        }
     }
 }

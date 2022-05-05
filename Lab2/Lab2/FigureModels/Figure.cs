@@ -14,6 +14,7 @@
 
         public abstract void SetPoints(List<Point> points);
         public abstract void Draw(Graphics graphics);
+        public abstract Figure Clone();
 
         public virtual void DrawFocus(Graphics graphics)
         {

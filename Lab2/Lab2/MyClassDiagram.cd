@@ -76,42 +76,42 @@
   <Class Name="Lab2.FigureModels.Figure">
     <Position X="4" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAggAACgIAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACAggAACgIAAAAAEAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Figure.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Ellipse">
     <Position X="0.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Ellipse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Line">
     <Position X="2.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Line.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Polygon">
     <Position X="4" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Polygon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Polyline">
     <Position X="5.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Polyline.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Rectangle">
     <Position X="7.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Rectangle.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -133,7 +133,7 @@
   <Class Name="Lab2.Form1">
     <Position X="15.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CCAACAkDFGBEGAUggBnSIZCGQSQFBJCAAOARIAQAICw=</HashCode>
+      <HashCode>CCAACAkDFGBEGAUggBnSIZCGQSQFBJCAAGARIAQAICw=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -144,13 +144,6 @@
       <FileName>Commands\MoveFigureCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Lab2.FigureCreators.CreatorGetter">
-    <Position X="9.25" Y="6.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>FigureCreators\CreatorGetter.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Interface Name="Lab2.Commands.ICommand">
     <Position X="11.5" Y="1" Width="1.5" />

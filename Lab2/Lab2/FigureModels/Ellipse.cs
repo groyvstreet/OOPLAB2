@@ -39,5 +39,20 @@
 
             graphics.DrawEllipse(Pen, rectangle);
         }
+
+        public override Figure Clone()
+        {
+            var figure = new Ellipse();
+            figure.Pen.Color = Pen.Color;
+            figure.Pen.Width = Pen.Width;
+
+            if (Brush != null)
+            {
+                figure.Brush = new SolidBrush(Brush.Color);
+            }
+
+            figure.SetPoints(points.ToList());
+            return figure;
+        }
     }
 }
