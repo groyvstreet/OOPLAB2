@@ -17,7 +17,6 @@ namespace Lab2.FigureModels
         public void Add(Figure figure)
         {
             figures.Add(figure);
-            Changed();
         }
 
         public void RemoveLast()
@@ -25,8 +24,12 @@ namespace Lab2.FigureModels
             if (figures.Any())
             {
                 figures.RemoveAt(figures.Count - 1);
-                Changed();
             }
+        }
+
+        public void OnChanged()
+        {
+            Changed();
         }
 
         public IEnumerator<Figure> GetEnumerator()

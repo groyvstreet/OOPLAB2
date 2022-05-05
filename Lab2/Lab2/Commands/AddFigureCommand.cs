@@ -16,11 +16,13 @@ namespace Lab2.Commands
         public void Execute()
         {
             figures.Add(figure);
+            figures.OnChanged();
         }
 
         public void UnExecute()
         {
             figures.RemoveLast();
+            figures.OnChanged();
         }
     }
 }

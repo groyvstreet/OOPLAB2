@@ -30,6 +30,7 @@
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.figuresPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.radioSelect = new System.Windows.Forms.RadioButton();
             this.radioLine = new System.Windows.Forms.RadioButton();
             this.radioRectangle = new System.Windows.Forms.RadioButton();
             this.radioEllipse = new System.Windows.Forms.RadioButton();
@@ -40,6 +41,7 @@
             this.buttonRedo = new System.Windows.Forms.Button();
             this.buttonUndoAll = new System.Windows.Forms.Button();
             this.buttonRedoAll = new System.Windows.Forms.Button();
+            this.buttonCopyFigure = new System.Windows.Forms.Button();
             this.buttonPenColor = new System.Windows.Forms.Button();
             this.buttonBrushColor = new System.Windows.Forms.Button();
             this.checkBoxBrush = new System.Windows.Forms.CheckBox();
@@ -65,10 +67,13 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
+            this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
             // figuresPanel
             // 
+            this.figuresPanel.Controls.Add(this.radioSelect);
             this.figuresPanel.Controls.Add(this.radioLine);
             this.figuresPanel.Controls.Add(this.radioRectangle);
             this.figuresPanel.Controls.Add(this.radioEllipse);
@@ -80,11 +85,23 @@
             this.figuresPanel.Size = new System.Drawing.Size(146, 418);
             this.figuresPanel.TabIndex = 1;
             // 
+            // radioSelect
+            // 
+            this.radioSelect.AutoSize = true;
+            this.radioSelect.Location = new System.Drawing.Point(3, 3);
+            this.radioSelect.Name = "radioSelect";
+            this.radioSelect.Size = new System.Drawing.Size(90, 24);
+            this.radioSelect.TabIndex = 5;
+            this.radioSelect.TabStop = true;
+            this.radioSelect.Text = "Выбрать";
+            this.radioSelect.UseVisualStyleBackColor = true;
+            this.radioSelect.CheckedChanged += new System.EventHandler(this.radioSelect_CheckedChanged);
+            // 
             // radioLine
             // 
             this.radioLine.AutoSize = true;
             this.radioLine.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioLine.Location = new System.Drawing.Point(3, 3);
+            this.radioLine.Location = new System.Drawing.Point(3, 33);
             this.radioLine.Name = "radioLine";
             this.radioLine.Size = new System.Drawing.Size(75, 24);
             this.radioLine.TabIndex = 0;
@@ -97,7 +114,7 @@
             // 
             this.radioRectangle.AutoSize = true;
             this.radioRectangle.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioRectangle.Location = new System.Drawing.Point(3, 33);
+            this.radioRectangle.Location = new System.Drawing.Point(3, 63);
             this.radioRectangle.Name = "radioRectangle";
             this.radioRectangle.Size = new System.Drawing.Size(141, 24);
             this.radioRectangle.TabIndex = 1;
@@ -110,7 +127,7 @@
             // 
             this.radioEllipse.AutoSize = true;
             this.radioEllipse.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioEllipse.Location = new System.Drawing.Point(3, 63);
+            this.radioEllipse.Location = new System.Drawing.Point(3, 93);
             this.radioEllipse.Name = "radioEllipse";
             this.radioEllipse.Size = new System.Drawing.Size(80, 24);
             this.radioEllipse.TabIndex = 2;
@@ -123,7 +140,7 @@
             // 
             this.radioPolyline.AutoSize = true;
             this.radioPolyline.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioPolyline.Location = new System.Drawing.Point(3, 93);
+            this.radioPolyline.Location = new System.Drawing.Point(3, 123);
             this.radioPolyline.Name = "radioPolyline";
             this.radioPolyline.Size = new System.Drawing.Size(93, 24);
             this.radioPolyline.TabIndex = 3;
@@ -136,7 +153,7 @@
             // 
             this.radioPolygon.AutoSize = true;
             this.radioPolygon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioPolygon.Location = new System.Drawing.Point(3, 123);
+            this.radioPolygon.Location = new System.Drawing.Point(3, 153);
             this.radioPolygon.Name = "radioPolygon";
             this.radioPolygon.Size = new System.Drawing.Size(139, 24);
             this.radioPolygon.TabIndex = 4;
@@ -151,6 +168,7 @@
             this.toolsPanel.Controls.Add(this.buttonRedo);
             this.toolsPanel.Controls.Add(this.buttonUndoAll);
             this.toolsPanel.Controls.Add(this.buttonRedoAll);
+            this.toolsPanel.Controls.Add(this.buttonCopyFigure);
             this.toolsPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.toolsPanel.Location = new System.Drawing.Point(0, 35);
             this.toolsPanel.Name = "toolsPanel";
@@ -196,6 +214,17 @@
             this.buttonRedoAll.Text = "Повторить всё";
             this.buttonRedoAll.UseVisualStyleBackColor = true;
             this.buttonRedoAll.Click += new System.EventHandler(this.buttonRedoAll_Click);
+            // 
+            // buttonCopyFigure
+            // 
+            this.buttonCopyFigure.Enabled = false;
+            this.buttonCopyFigure.Location = new System.Drawing.Point(3, 201);
+            this.buttonCopyFigure.Name = "buttonCopyFigure";
+            this.buttonCopyFigure.Size = new System.Drawing.Size(94, 29);
+            this.buttonCopyFigure.TabIndex = 4;
+            this.buttonCopyFigure.Text = "Клон";
+            this.buttonCopyFigure.UseVisualStyleBackColor = true;
+            this.buttonCopyFigure.Click += new System.EventHandler(this.buttonCopyFigure_Click);
             // 
             // buttonPenColor
             // 
@@ -256,7 +285,7 @@
             this.paramsPanel.Size = new System.Drawing.Size(982, 35);
             this.paramsPanel.TabIndex = 4;
             // 
-            // Application
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -266,7 +295,7 @@
             this.Controls.Add(this.figuresPanel);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.paramsPanel);
-            this.Name = "Application";
+            this.Name = "Form1";
             this.Text = "Paint";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.figuresPanel.ResumeLayout(false);
@@ -300,5 +329,7 @@
         private Button buttonRedo;
         private Button buttonUndoAll;
         private Button buttonRedoAll;
+        private RadioButton radioSelect;
+        private Button buttonCopyFigure;
     }
 }

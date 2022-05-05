@@ -6,32 +6,24 @@ namespace Lab2
 {
     public partial class Form1 : Form
     {
-        Pen _pen;
-        SolidBrush _brush;
-        bool isDrawing;
-        bool isBrushable;
+        Pen _pen = new Pen(Color.Black, 1);
+        SolidBrush _brush = new SolidBrush(Color.White);
+        bool isDrawing = false;
+        bool isBrushable = false;
+        bool isSelecting = false;
+        bool isDragging = false;
+        bool Dragged = false;
         Point _point;
-        List<Point> _points;
-        FigureCreator _figureCreator;
-        Figures _figures;
-        CommandManager _manager;
+        List<Point> _points = new List<Point>();
+        Figure? _selectedFigure;
+        FigureCreator _figureCreator = new LineCreator();
+        Figures _figures = new Figures();
+        CommandManager _manager = new CommandManager();
+        CreatorGetter _creatorGetter = new CreatorGetter();
 
         public Form1()
         {
             InitializeComponent();
-
-            _pen = new Pen(Color.Black, 1);
-            _brush = new SolidBrush(Color.White);
-
-            isDrawing = false;
-            isBrushable = false;
-
-            _point = new Point(0, 0);
-            _points = new List<Point>();
-
-            _figureCreator = new LineCreator();
-            _figures = new Figures();
-            _manager = new CommandManager();
 
             manager_Changed();
 
@@ -114,10 +106,26 @@ namespace Lab2
                 _point = e.Location;
                 pictureBox.Invalidate();
             }
+
+            if (e.Button == MouseButtons.Left && _selectedFigure != null && isDragging)
+            {
+                for (int i = 0; i < _selectedFigure.points.Length; i++)
+                {
+                    _selectedFigure.points[i] = new Point(_points[i].X + e.Location.X - _point.X, _points[i].Y + e.Location.Y - _point.Y);
+                }
+
+                Dragged = true;
+                pictureBox.Invalidate();
+            }
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
+            if (_selectedFigure != null && _figures.Contains(_selectedFigure))
+            {
+                _selectedFigure.DrawFocus(e.Graphics);
+            }
+
             foreach (var figure in _figures)
             {
                 figure.Draw(e.Graphics);
@@ -144,30 +152,34 @@ namespace Lab2
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (!isDrawing)
+                if (!isSelecting)
                 {
-                    isDrawing = true;
-                    _points.Add(e.Location);
-                }
-                else
-                {
-                    isDrawing = false;
-                    _points.Add(e.Location);
-                    var figure = _figureCreator.Create();
-                    figure.Pen.Color = _pen.Color;
-                    figure.Pen.Width = _pen.Width;
-
-                    if (isBrushable)
+                    if (!isDrawing)
                     {
-                        figure.Brush = new SolidBrush(_brush.Color);
+                        _points.Clear();
+                        _points.Add(e.Location);
+                        isDrawing = true;
                     }
+                    else
+                    {
+                        _points.Add(e.Location);
+                        var figure = _figureCreator.Create();
+                        figure.Pen.Color = _pen.Color;
+                        figure.Pen.Width = _pen.Width;
 
-                    figure.SetPoints(_points);
+                        if (isBrushable)
+                        {
+                            figure.Brush = new SolidBrush(_brush.Color);
+                        }
 
-                    var command = new AddFigureCommand(_figures, figure);
-                    _manager.Execute(command);
+                        figure.SetPoints(_points);
 
-                    _points.Clear();
+                        var command = new AddFigureCommand(_figures, figure);
+                        _manager.Execute(command);
+
+                        _points.Clear();
+                        isDrawing = false;
+                    }
                 }
             }
             else if (e.Button == MouseButtons.Right)
@@ -181,15 +193,7 @@ namespace Lab2
 
         private void checkBoxBrush_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxBrush.Checked)
-            {
-                isBrushable = true;
-            }
-            else
-            {
-                isBrushable = false;
-            }
-
+            isBrushable = checkBoxBrush.Checked;
             pictureBox.Invalidate();
         }
 
@@ -211,6 +215,92 @@ namespace Lab2
         private void buttonRedoAll_Click(object sender, EventArgs e)
         {
             _manager.RedoAll();
+        }
+
+        private void radioSelect_CheckedChanged(object sender, EventArgs e)
+        {
+            isSelecting = radioSelect.Checked;
+
+            if (!isSelecting)
+            {
+                _selectedFigure = null;
+                pictureBox.Invalidate();
+            }
+        }
+
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (_selectedFigure != null && _selectedFigure.InFigure(e.Location))
+                {
+                    _point = e.Location;
+                    _points = _selectedFigure.points.ToList();
+                    isDragging = true;
+                    return;
+                }
+
+                if (isSelecting)
+                {
+                    _selectedFigure = null;
+                    buttonCopyFigure.Enabled = false;
+
+                    foreach (var figure in _figures.Reverse())
+                    {
+                        if (figure.InFigure(e.Location))
+                        {
+                            _selectedFigure = figure;
+                            buttonCopyFigure.Enabled = true;
+                        }
+                    }
+
+                    pictureBox.Invalidate();
+                }
+            }
+        }
+
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (_selectedFigure != null && Dragged && _point != e.Location)
+                {
+                    var command = new MoveFigureCommand(_figures, _selectedFigure, _points);
+                    _manager.Execute(command);
+
+                    _points.Clear();
+                    isDragging = false;
+                    Dragged = false;
+                }
+            }
+        }
+
+        private void buttonCopyFigure_Click(object sender, EventArgs e)
+        {
+            if (_selectedFigure != null)
+            {
+                _figureCreator = _creatorGetter.Get(_selectedFigure);
+                var figure = _figureCreator.Create();
+                figure.Pen.Color = _selectedFigure.Pen.Color;
+                figure.Pen.Width = _selectedFigure.Pen.Width;
+
+                if (_selectedFigure.Brush != null)
+                {
+                    figure.Brush = new SolidBrush(_selectedFigure.Brush.Color);
+                }
+
+                var points = _selectedFigure.points.ToList();
+
+                for (int i = 0; i < points.Count; i++)
+                {
+                    points[i] = new Point(points[i].X + 20, points[i].Y + 20);
+                }
+
+                figure.SetPoints(points);
+
+                var command = new AddFigureCommand(_figures, figure);
+                _manager.Execute(command);
+            }
         }
     }
 }

@@ -76,7 +76,7 @@
   <Class Name="Lab2.FigureModels.Figure">
     <Position X="4" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAgAACgIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACAggAACgIAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FigureModels\Figure.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -125,7 +125,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAIIACAAAAAAABAABAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <HashCode>AAIIACAAAQAAABAABAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>FigureModels\Figures.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -133,8 +133,23 @@
   <Class Name="Lab2.Form1">
     <Position X="15.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CCAACAkAFGBEEAEggBnSIZACQSQFBJCAAGABIAQAICw=</HashCode>
+      <HashCode>CCAACAkDFGBEGAUggBnSIZCGQSQFBJCAAOARIAQAICw=</HashCode>
       <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.Commands.MoveFigureCommand">
+    <Position X="11.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhCCAAAAAAAQAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Commands\MoveFigureCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lab2.FigureCreators.CreatorGetter">
+    <Position X="9.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FigureCreators\CreatorGetter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Lab2.Commands.ICommand">
