@@ -4,7 +4,7 @@
     <Position X="0.5" Y="0.5" Height="0.291" Width="1.7" />
   </Comment>
   <Comment CommentText="Factory method">
-    <Position X="0.5" Y="6.241" Height="0.291" Width="1.7" />
+    <Position X="0.5" Y="6.991" Height="0.291" Width="1.7" />
   </Comment>
   <Comment CommentText="Commands">
     <Position X="11.484" Y="0.5" Height="0.291" Width="1.7" />
@@ -32,42 +32,42 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureCreators.FigureCreator">
-    <Position X="4" Y="6.5" Width="1.5" />
+    <Position X="4" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>FigureCreators\FigureCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureCreators.EllipseCreator">
-    <Position X="0.5" Y="8.5" Width="1.5" />
+    <Position X="0.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>FigureCreators\EllipseCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureCreators.LineCreator">
-    <Position X="2.25" Y="8.5" Width="1.5" />
+    <Position X="2.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>FigureCreators\LineCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureCreators.PolygonCreator">
-    <Position X="4" Y="8.5" Width="1.5" />
+    <Position X="4" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>FigureCreators\PolygonCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureCreators.PolylineCreator">
-    <Position X="5.75" Y="8.5" Width="1.5" />
+    <Position X="5.75" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>FigureCreators\PolylineCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureCreators.RectangleCreator">
-    <Position X="7.5" Y="8.5" Width="1.5" />
+    <Position X="7.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>FigureCreators\RectangleCreator.cs</FileName>
@@ -76,40 +76,40 @@
   <Class Name="Lab2.FigureModels.Figure">
     <Position X="4" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAggAACgIAAAAAEAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAACAggAAAgIAAAAAEAAAAAAAAAAAAAQAAAAAABk=</HashCode>
       <FileName>FigureModels\Figure.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Ellipse">
-    <Position X="0.5" Y="4.25" Width="1.5" />
+    <Position X="0.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Ellipse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Line">
-    <Position X="2.25" Y="4.25" Width="1.5" />
+    <Position X="2.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Line.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Polygon">
-    <Position X="4" Y="4.25" Width="1.5" />
+    <Position X="4" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Polygon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Polyline">
-    <Position X="5.75" Y="4.25" Width="1.5" />
+    <Position X="5.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Polyline.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Lab2.FigureModels.Rectangle">
-    <Position X="7.5" Y="4.25" Width="1.5" />
+    <Position X="7.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>FigureModels\Rectangle.cs</FileName>
@@ -133,7 +133,7 @@
   <Class Name="Lab2.Form1">
     <Position X="15.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CCAACAkDFGBEGAUggBnSIZCGQSQFBJCAAGARIAQAICw=</HashCode>
+      <HashCode>CCAACAkDFGBEmA0ggBnSIZCGQSQFRJCAIGARIAQAICw=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>

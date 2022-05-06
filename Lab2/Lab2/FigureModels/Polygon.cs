@@ -2,6 +2,7 @@
 
 namespace Lab2.FigureModels
 {
+    [Serializable]
     internal class Polygon : Figure
     {
         public override void SetPoints(List<Point> points)
@@ -21,25 +22,21 @@ namespace Lab2.FigureModels
             GraphicsPath path = new(FillMode.Winding);
             path.AddLines(points);
 
-            if (Brush != null)
+            if (Brush)
             {
-                graphics.FillPath(Brush, path);
+                graphics.FillPath(new SolidBrush(BrushColor), path);
             }
 
-            graphics.DrawLines(Pen, points);
+            graphics.DrawLines(new Pen(PenColor, PenWidth), points);
         }
 
         public override Figure Clone()
         {
             var figure = new Polygon();
-            figure.Pen.Color = Pen.Color;
-            figure.Pen.Width = Pen.Width;
-
-            if (Brush != null)
-            {
-                figure.Brush = new SolidBrush(Brush.Color);
-            }
-
+            figure.PenColor = PenColor;
+            figure.PenWidth = PenWidth;
+            figure.Brush = Brush;
+            figure.BrushColor = BrushColor;
             figure.SetPoints(points.ToList());
             return figure;
         }

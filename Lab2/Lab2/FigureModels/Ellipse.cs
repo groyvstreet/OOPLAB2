@@ -1,5 +1,6 @@
 ﻿namespace Lab2.FigureModels
 {
+    [Serializable]
     internal class Ellipse : Figure
     {
         public override void SetPoints(List<Point> points)
@@ -32,25 +33,21 @@
                 rectangle = new System.Drawing.Rectangle(points[1].X, points[1].Y, Math.Abs(width), Math.Abs(height));
             }
 
-            if (Brush != null)
+            if (Brush)
             {
-                graphics.FillEllipse(Brush, rectangle);
+                graphics.FillEllipse(new SolidBrush(BrushColor), rectangle);
             }
 
-            graphics.DrawEllipse(Pen, rectangle);
+            graphics.DrawEllipse(new Pen(PenColor, PenWidth), rectangle);
         }
 
         public override Figure Clone()
         {
             var figure = new Ellipse();
-            figure.Pen.Color = Pen.Color;
-            figure.Pen.Width = Pen.Width;
-
-            if (Brush != null)
-            {
-                figure.Brush = new SolidBrush(Brush.Color);
-            }
-
+            figure.PenColor = PenColor;
+            figure.PenWidth = PenWidth;
+            figure.Brush = Brush;
+            figure.BrushColor = BrushColor;
             figure.SetPoints(points.ToList());
             return figure;
         }

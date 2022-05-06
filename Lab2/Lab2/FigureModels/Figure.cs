@@ -1,16 +1,21 @@
 ﻿namespace Lab2.FigureModels
 {
+    [Serializable]
     abstract class Figure
     {
-        public Point[] points;
-        public Pen Pen { get; set; }
-        public SolidBrush? Brush { get; set; }
+        public Point[] points = Array.Empty<Point>();
+        public Color PenColor { get; set; }
+        public float PenWidth { get; set; }
+        public Color BrushColor { get; set; }
+        public bool Brush { get; set; }
+        //public Pen Pen { get; set; }
+        //public SolidBrush? Brush { get; set; }
 
-        public Figure()
+        /*public Figure()
         {
             points = Array.Empty<Point>();
-            Pen = new Pen(Color.Black);
-        }
+            //Pen = new Pen(Color.Black);
+        }*/
 
         public abstract void SetPoints(List<Point> points);
         public abstract void Draw(Graphics graphics);
@@ -18,12 +23,12 @@
 
         public virtual void DrawFocus(Graphics graphics)
         {
-            Pen pen = new(Pen.Color, Pen.Width);
-            Pen.Color = Color.Gray;
-            Pen.Width = 15;
+            Pen pen = new(PenColor, PenWidth);
+            PenColor = Color.Gray;
+            PenWidth = 15;
             Draw(graphics);
-            Pen.Color = pen.Color;
-            Pen.Width = pen.Width;
+            PenColor = pen.Color;
+            PenWidth = pen.Width;
         }
 
         public virtual bool InFigure(Point point)

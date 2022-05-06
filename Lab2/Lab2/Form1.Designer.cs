@@ -42,6 +42,8 @@
             this.buttonUndoAll = new System.Windows.Forms.Button();
             this.buttonRedoAll = new System.Windows.Forms.Button();
             this.buttonCopyFigure = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonPenColor = new System.Windows.Forms.Button();
             this.buttonBrushColor = new System.Windows.Forms.Button();
             this.checkBoxBrush = new System.Windows.Forms.CheckBox();
@@ -49,6 +51,8 @@
             this.penColorDialog = new System.Windows.Forms.ColorDialog();
             this.brushColorDialog = new System.Windows.Forms.ColorDialog();
             this.paramsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.figuresPanel.SuspendLayout();
             this.toolsPanel.SuspendLayout();
@@ -169,6 +173,8 @@
             this.toolsPanel.Controls.Add(this.buttonUndoAll);
             this.toolsPanel.Controls.Add(this.buttonRedoAll);
             this.toolsPanel.Controls.Add(this.buttonCopyFigure);
+            this.toolsPanel.Controls.Add(this.buttonSave);
+            this.toolsPanel.Controls.Add(this.buttonOpen);
             this.toolsPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.toolsPanel.Location = new System.Drawing.Point(0, 35);
             this.toolsPanel.Name = "toolsPanel";
@@ -225,6 +231,26 @@
             this.buttonCopyFigure.Text = "Клон";
             this.buttonCopyFigure.UseVisualStyleBackColor = true;
             this.buttonCopyFigure.Click += new System.EventHandler(this.buttonCopyFigure_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(3, 236);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(94, 29);
+            this.buttonSave.TabIndex = 5;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonOpen
+            // 
+            this.buttonOpen.Location = new System.Drawing.Point(3, 271);
+            this.buttonOpen.Name = "buttonOpen";
+            this.buttonOpen.Size = new System.Drawing.Size(94, 29);
+            this.buttonOpen.TabIndex = 6;
+            this.buttonOpen.Text = "Открыть";
+            this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonPenColor
             // 
@@ -285,6 +311,11 @@
             this.paramsPanel.Size = new System.Drawing.Size(982, 35);
             this.paramsPanel.TabIndex = 4;
             // 
+            // saveDialog
+            // 
+            this.saveDialog.DefaultExt = "json";
+            this.saveDialog.Tag = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -331,5 +362,9 @@
         private Button buttonRedoAll;
         private RadioButton radioSelect;
         private Button buttonCopyFigure;
+        private Button buttonSave;
+        private Button buttonOpen;
+        private SaveFileDialog saveDialog;
+        private OpenFileDialog openDialog;
     }
 }

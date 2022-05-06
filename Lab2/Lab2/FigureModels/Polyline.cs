@@ -1,5 +1,6 @@
 ﻿namespace Lab2.FigureModels
 {
+    [Serializable]
     internal class Polyline : Figure
     {
         public override void SetPoints(List<Point> points)
@@ -14,20 +15,16 @@
 
         public override void Draw(Graphics graphics)
         {
-            graphics.DrawLines(Pen, points);
+            graphics.DrawLines(new Pen(PenColor, PenWidth), points);
         }
 
         public override Figure Clone()
         {
             var figure = new Polyline();
-            figure.Pen.Color = Pen.Color;
-            figure.Pen.Width = Pen.Width;
-
-            if (Brush != null)
-            {
-                figure.Brush = new SolidBrush(Brush.Color);
-            }
-
+            figure.PenColor = PenColor;
+            figure.PenWidth = PenWidth;
+            figure.Brush = Brush;
+            figure.BrushColor = BrushColor;
             figure.SetPoints(points.ToList());
             return figure;
         }

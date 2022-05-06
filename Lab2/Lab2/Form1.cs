@@ -1,6 +1,8 @@
 using Lab2.Commands;
 using Lab2.FigureCreators;
 using Lab2.FigureModels;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace Lab2
 {
@@ -134,11 +136,13 @@ namespace Lab2
             {
                 _points.Add(_point);
                 var figure = _figureCreator.Create();
-                figure.Pen = _pen;
+                figure.PenColor = _pen.Color;
+                figure.PenWidth = _pen.Width;
 
                 if (isBrushable)
                 {
-                    figure.Brush = _brush;
+                    figure.Brush = true;
+                    figure.BrushColor = _brush.Color;
                 }
 
                 figure.SetPoints(_points);
@@ -163,12 +167,13 @@ namespace Lab2
                     {
                         _points.Add(e.Location);
                         var figure = _figureCreator.Create();
-                        figure.Pen.Color = _pen.Color;
-                        figure.Pen.Width = _pen.Width;
+                        figure.PenColor = _pen.Color;
+                        figure.PenWidth = _pen.Width;
 
                         if (isBrushable)
                         {
-                            figure.Brush = new SolidBrush(_brush.Color);
+                            figure.Brush = true;
+                            figure.BrushColor = _brush.Color;
                         }
 
                         figure.SetPoints(_points);
@@ -280,14 +285,6 @@ namespace Lab2
             if (_selectedFigure != null)
             {
                 var figure = _selectedFigure.Clone();
-                figure.Pen.Color = _selectedFigure.Pen.Color;
-                figure.Pen.Width = _selectedFigure.Pen.Width;
-
-                if (_selectedFigure.Brush != null)
-                {
-                    figure.Brush = new SolidBrush(_selectedFigure.Brush.Color);
-                }
-
                 var points = _selectedFigure.points.ToList();
 
                 for (int i = 0; i < points.Count; i++)
@@ -299,6 +296,68 @@ namespace Lab2
 
                 var command = new AddFigureCommand(_figures, figure);
                 _manager.Execute(command);
+            }
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (saveDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            string filename = saveDialog.FileName;
+
+            using (StreamWriter stream = File.CreateText(filename))
+            {
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    Formatting = Formatting.Indented 
+                };
+                JsonSerializer serializer = JsonSerializer.Create(settings);
+
+                if (_selectedFigure != null)
+                {
+                    var list = new List<Figure> { _selectedFigure };
+                    serializer.Serialize(stream, list);
+                }
+                else
+                {
+                    serializer.Serialize(stream, _figures.ToList());
+                }
+            }
+        }
+
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            if (openDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            string filename = openDialog.FileName;
+
+            using (FileStream stream = File.OpenRead(filename))
+            {
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    Formatting = Formatting.Indented
+                };
+                byte[] array = new byte[stream.Length];
+                stream.Read(array, 0, array.Length);
+                string json = Encoding.Default.GetString(array);
+                var figures = JsonConvert.DeserializeObject<List<Figure>>(json, settings);
+
+                if (figures != null)
+                {
+                    foreach (var figure in figures)
+                    {
+                        var command = new AddFigureCommand(_figures, figure);
+                        _manager.Execute(command);
+                    }
+                }
             }
         }
     }
