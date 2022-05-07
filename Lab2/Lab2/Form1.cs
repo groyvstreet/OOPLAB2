@@ -1,26 +1,28 @@
 using Lab2.Commands;
 using Lab2.FigureCreators;
 using Lab2.FigureModels;
+using Lab2.PluginBase;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Lab2
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, IHost
     {
-        Pen _pen = new Pen(Color.Black, 1);
-        SolidBrush _brush = new SolidBrush(Color.White);
-        bool isDrawing = false;
-        bool isBrushable = false;
-        bool isSelecting = false;
-        bool isDragging = false;
-        bool Dragged = false;
-        Point _point;
-        List<Point> _points = new List<Point>();
-        Figure? _selectedFigure;
-        FigureCreator _figureCreator = new LineCreator();
-        Figures _figures = new Figures();
-        CommandManager _manager = new CommandManager();
+        private Pen _pen = new Pen(Color.Black, 1);
+        private SolidBrush _brush = new SolidBrush(Color.White);
+        private bool isDrawing = false;
+        private bool isBrushable = false;
+        private bool isSelecting = false;
+        private bool isDragging = false;
+        private bool Dragged = false;
+        private Point _point;
+        private List<Point> _points = new List<Point>();
+        private Figure? _selectedFigure;
+        private FigureCreator _figureCreator = new LineCreator();
+        private Figures _figures = new Figures();
+        private CommandManager _manager = new CommandManager();
+        private PluginManager _pluginManager = new PluginManager();
 
         public Form1()
         {
@@ -30,6 +32,16 @@ namespace Lab2
 
             _figures.Changed += figures_Changed;
             _manager.Changed += manager_Changed;
+
+            _pluginManager.ScanPlugins(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\");
+            var menuStrip = new MenuStrip() { Parent = this };
+            var menuItem = (ToolStripMenuItem)menuStrip.Items.Add("Плагины");
+
+            foreach (var plugin in _pluginManager.Plugins)
+            {
+                var item = menuItem.DropDownItems.Add(plugin.Name);
+                item.Click += delegate { plugin.Run(this); };
+            }
         }
 
         private void figures_Changed()
@@ -122,14 +134,15 @@ namespace Lab2
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            if (_selectedFigure != null && _figures.Contains(_selectedFigure))
-            {
-                _selectedFigure.DrawFocus(e.Graphics);
-            }
-
             foreach (var figure in _figures)
             {
                 figure.Draw(e.Graphics);
+            }
+
+            if (_selectedFigure != null && _figures.Contains(_selectedFigure))
+            {
+                _selectedFigure.DrawFocus(e.Graphics);
+                _selectedFigure.Draw(e.Graphics);
             }
 
             if (isDrawing)
@@ -313,7 +326,7 @@ namespace Lab2
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All,
-                    Formatting = Formatting.Indented 
+                    Formatting = Formatting.Indented
                 };
                 JsonSerializer serializer = JsonSerializer.Create(settings);
 
@@ -359,6 +372,12 @@ namespace Lab2
                     }
                 }
             }
+        }
+
+        public void AddControl(RadioButton radioButton, FigureCreator figureCreator)
+        {
+            radioButton.CheckedChanged += delegate { _figureCreator = figureCreator; };
+            figuresPanel.Controls.Add(radioButton);
         }
     }
 }

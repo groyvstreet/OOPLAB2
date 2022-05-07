@@ -9,6 +9,9 @@
   <Comment CommentText="Commands">
     <Position X="11.484" Y="0.5" Height="0.291" Width="1.7" />
   </Comment>
+  <Comment CommentText="Plugin base">
+    <Position X="11.463" Y="8.752" Height="0.291" Width="1.7" />
+  </Comment>
   <Class Name="Lab2.Commands.AddFigureCommand">
     <Position X="11.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
@@ -133,9 +136,10 @@
   <Class Name="Lab2.Form1">
     <Position X="15.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CCAACAkDFGBEmA0ggBnSIZCGQSQFRJCAIGARIAQAICw=</HashCode>
+      <HashCode>CCAADAkDFGBEmA0ggBnSIZCGYSQFRJCAIGARIAQAICw=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Lab2.Commands.MoveFigureCommand">
     <Position X="11.5" Y="5.25" Width="1.5" />
@@ -145,11 +149,32 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="Lab2.PluginBase.PluginManager">
+    <Position X="13.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAAA=</HashCode>
+      <FileName>PluginBase\PluginManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="Lab2.Commands.ICommand">
     <Position X="11.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Lab2.PluginBase.IHost">
+    <Position X="11.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PluginBase\IHost.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Lab2.PluginBase.IPlugin">
+    <Position X="11.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>PluginBase\IPlugin.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

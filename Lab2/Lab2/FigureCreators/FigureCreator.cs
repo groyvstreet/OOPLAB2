@@ -2,8 +2,8 @@
 
 namespace Lab2.FigureCreators
 {
-    abstract class FigureCreator
+    public abstract class FigureCreator
     {
-        abstract public Figure Create();
+        public abstract Figure Create();
     }
 }
